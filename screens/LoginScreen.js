@@ -1,5 +1,17 @@
 import * as React from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  useFonts,
+  Montserrat_100Thin,
+  Montserrat_200ExtraLight,
+  Montserrat_300Light,
+  Montserrat_400Regular,
+  Montserrat_500Medium,
+  Montserrat_600SemiBold,
+  Montserrat_700Bold,
+  Montserrat_800ExtraBold,
+  Montserrat_900Black,
+} from '@expo-google-fonts/montserrat';
 
 function LoginScreen({navigation}) {
   const handleLogin = () => {
@@ -9,7 +21,21 @@ function LoginScreen({navigation}) {
   const handleCadastro = () => {
     navigation.navigate('Cadastro');
   };
+
+  let [fontsLoaded] = useFonts({
+    Montserrat_100Thin,
+    Montserrat_200ExtraLight,
+    Montserrat_300Light,
+    Montserrat_400Regular,
+    Montserrat_500Medium,
+    Montserrat_600SemiBold,
+    Montserrat_700Bold,
+    Montserrat_800ExtraBold,
+    Montserrat_900Black,
+  });
+
   return (
+    
   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
     <Text style={styles.titulo}>Bem-vindo ao PVendas</Text>
 
@@ -27,20 +53,15 @@ function LoginScreen({navigation}) {
       <TouchableOpacity style={styles.botaoCadastro} onPress={handleCadastro}>
         <Text style={styles.textoBotao}>Cadastrar-se</Text>
       </TouchableOpacity>
-      
+
   </View>
   );
 }
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
   titulo: {
     fontSize: 24,
     marginBottom: 50,
+    fontFamily: 'Montserrat_500Medium'
   },
   input: {
     width: '80%',
@@ -50,6 +71,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: '#ccc',
     borderWidth: 1,
+    fontFamily: 'Montserrat_300Light'
   },
   botao: {
     backgroundColor: '#68A54C',
@@ -71,8 +93,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     textAlign: 'center',
+    fontFamily: 'Montserrat_600SemiBold'
   },
 });
-
 
 export default LoginScreen;

@@ -19,40 +19,40 @@ function RotaScreen() {
     <View style={styles.container}>
         <View style={styles.header}>
             <Ionicons style={styles.icon} name="person-outline" size={35} />
-            <Text style={styles.titulo}>Minhas Rotas de Hoje</Text> 
+            <Text style={styles.titulo}>Minhas Rotas concluídas</Text> 
         </View>
         <View style={styles.containerList}>
-            <View style={styles.boxTitulo}>
-                <Text style={styles.tituloRota}>Rotas Agendadas</Text>
-            </View>
             <View style={styles.box}>
                 <View style={styles.inner}>
                     <Text style={styles.textoDivs}>Supermercado Pernambucano</Text>
-                    <Text style={styles.descricaoEmAndamento}>10h - 11h</Text>
+                    <Text style={styles.descricaoEmAndamento}>15/02/2023 10h - 11h</Text>
                     <TouchableOpacity style={styles.botaoCadastro}>
-                        <Text style={styles.textoBotao}>Iniciar Rota</Text>
+                        <Text style={styles.textoBotao}>Baixar relatório</Text>
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={styles.boxSecond}>
+            <View style={styles.box}>
                 <View style={styles.inner}>
                     <Text style={styles.textoDivs}>Supermercado Pernambucano</Text>
-                    <Text style={styles.descricaoEmAndamento}>13h - 14h</Text>
+                    <Text style={styles.descricaoEmAndamento}>15/02/2023 10h - 11h</Text>
+                    <TouchableOpacity style={styles.botaoCadastro}>
+                        <Text style={styles.textoBotao}>Baixar relatório</Text>
+                    </TouchableOpacity>
                 </View>
-            </View>
-            <View style={styles.boxSecond}>
-                <View style={styles.inner}>
-                    <Text style={styles.textoDivs}>Supermercado Pernambucano</Text>
-                    <Text style={styles.descricaoEmAndamento}>15h - 16h30</Text>
-                </View>
-            </View>
-            <View style={styles.boxTitulo}>
-                <Text style={styles.tituloRota}>Rotas Concluídas Hoje</Text>
             </View>
             <View style={styles.box}>
                 <View style={styles.inner}>
                     <Text style={styles.textoDivs}>Supermercado Pernambucano</Text>
-                    <Text style={styles.descricaoEmAndamento}>10h - 11h</Text>
+                    <Text style={styles.descricaoEmAndamento}>15/02/2023 10h - 11h</Text>
+                    <TouchableOpacity style={styles.botaoCadastro}>
+                        <Text style={styles.textoBotao}>Baixar relatório</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <View style={styles.box}>
+                <View style={styles.inner}>
+                    <Text style={styles.textoDivs}>Supermercado Pernambucano</Text>
+                    <Text style={styles.descricaoEmAndamento}>15/02/2023 10h - 11h</Text>
                     <TouchableOpacity style={styles.botaoCadastro}>
                         <Text style={styles.textoBotao}>Baixar relatório</Text>
                     </TouchableOpacity>
@@ -121,9 +121,9 @@ const styles = StyleSheet.create({
         fontFamily: 'Montserrat_600SemiBold'
     },
     botaoCadastro: {
-        width: '85%',
+        width: '50%',
         height: 35,
-        backgroundColor: '#0C0B0B',
+        backgroundColor: '#252424',
         padding: 8,
         borderRadius: 5,
         borderWidth: 1,

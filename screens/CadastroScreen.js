@@ -1,9 +1,19 @@
 import * as React from 'react';
-import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+    useFonts,
+    Montserrat_300Light,
+    Montserrat_600SemiBold,
+    Montserrat_700Bold,
+  } from '@expo-google-fonts/montserrat';
 
 function CadastroScreen({navigation}) {
+    let [fontsLoaded] = useFonts({
+        Montserrat_300Light,
+        Montserrat_600SemiBold,
+        Montserrat_700Bold,
+    });
+
     const handleHome = () => {
         navigation.navigate('Home');
       };
@@ -29,7 +39,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 20,
         marginRight: 205,
-        fontSize: 20
+        fontSize: 20,
+        fontFamily: 'Montserrat_700Bold'
     },
     input: {
         width: '85%',
@@ -40,7 +51,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flex: 1,
-        backgroundColor: '#FFFDFD'
+        backgroundColor: '#FFFDFD',
+        fontFamily: 'Montserrat_300Light'
     },
     botaoCadastro: {
         width: '85%',
@@ -56,6 +68,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',
+        fontFamily: 'Montserrat_600SemiBold'
     },
   });
 

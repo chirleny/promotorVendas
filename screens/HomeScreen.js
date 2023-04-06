@@ -1,16 +1,31 @@
 import * as React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity  } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import {
+  useFonts,
+  Montserrat_400Regular,
+  Montserrat_600SemiBold,
+  Montserrat_700Bold,
+} from '@expo-google-fonts/montserrat';
 
 function HomeScreen({navigation}) {
-    const handleHome = () => {
+    const handleRota = () => {
         navigation.navigate('Rota');
     };
+    const handleRotasConcluidas = () => {
+      navigation.navigate('RotasConcluidas');
+  };
+
+    let [fontsLoaded] = useFonts({
+      Montserrat_400Regular,
+      Montserrat_600SemiBold,
+      Montserrat_700Bold,
+    });
 
     return (    
         <View style={styles.container}>
             <View style={styles.header}>
-              <TouchableOpacity onPress={handleHome}>
+              <TouchableOpacity onPress={handleRota}>
                   <Ionicons style={styles.icon} name="person-outline" size={35} />
               </TouchableOpacity>
               <Text style={styles.titulo}>Bem-vindo, Fulano</Text> 
@@ -19,7 +34,7 @@ function HomeScreen({navigation}) {
             
               <View style={styles.box}>                
                 <View style={styles.inner}>
-                  <TouchableOpacity onPress={handleHome}>
+                  <TouchableOpacity onPress={handleRota}>
                     <Text style={styles.textoDivs}>Minhas</Text>
                     <Text style={styles.textoDivs}>Rotas de</Text>
                     <Text style={styles.textoDivs}>Hoje</Text>
@@ -29,9 +44,11 @@ function HomeScreen({navigation}) {
 
               <View style={styles.box}>
                 <View style={styles.inner}>
+                  <TouchableOpacity onPress={handleRotasConcluidas}>
                     <Text style={styles.textoDivs}>Minhas</Text>
                     <Text style={styles.textoDivs}>Rotas</Text>
                     <Text style={styles.textoDivs}>Concluídas</Text>
+                  </TouchableOpacity>
                 </View>
               </View>
 
@@ -58,7 +75,7 @@ function HomeScreen({navigation}) {
                   <Text style={styles.descricaoEmAndamento}>Jaboatão dos Guararapes</Text>
                   <Text style={styles.descricaoEmAndamento}>Tempo Restante - 1h30</Text>
                   
-                  <TouchableOpacity style={styles.botaoCadastro} onPress={handleHome}>
+                  <TouchableOpacity style={styles.botaoCadastro} onPress={handleRota}>
                       <Text style={styles.textoBotao}>Visualizar Ações</Text>
                   </TouchableOpacity>
                 </View>
@@ -74,7 +91,7 @@ const styles = StyleSheet.create({
         padding: 5,
         flexDirection: 'row',
         flexWrap: 'wrap',
-        backgroundColor: '#DFDEE0'
+        backgroundColor: '#DFDEE0',
     },
     box:{
         width: '33%',
@@ -107,18 +124,22 @@ const styles = StyleSheet.create({
     textoDivs:{
         fontWeight: 'bold',
         fontSize: 17,
+        fontFamily: 'Montserrat_600SemiBold'
     },
     descricaoEmAndamento:{
         fontSize: 17,
         color: '#F0E3E3',
+        fontFamily: 'Montserrat_400Regular'
     },
     titulo:{
         fontWeight: 'bold',
-        fontSize: 18
+        fontSize: 18,
+        fontFamily: 'Montserrat_700Bold'
     },
     tituloRota:{
         fontWeight: 'bold',
         fontSize: 18,
+        fontFamily: 'Montserrat_700Bold'
     },
     botaoCadastro: {
         width: '85%',
@@ -134,16 +155,17 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',
+        fontFamily: 'Montserrat_400Regular'
     },
     icon:{
       padding: 15,
     },
     header:{
       width: '100%',
-      height: '20%',
+      height: '15%',
       alignItems: 'center',
-      justifyContent: 'center',
       backgroundColor: '#DFDEE0',
+      flexDirection:'row'
     },
 });
 
