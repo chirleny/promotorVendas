@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Modal, StyleSheet, TouchableOpacity  } from 'react-native';
+import { View, Text, Modal, Image, StyleSheet, TouchableOpacity  } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import {
   useFonts,
@@ -22,6 +22,12 @@ function HomeSupervisorScreen({route, navigation}) {
     };
     const handleRotasConcluidas = () => {
       navigation.navigate('RotasConcluidas');
+    };
+
+    const handleCadastroPromotor = () => {
+      navigation.navigate('CadastroPromotor', {
+        usuario: usuario
+      });
     };
 
     const handleRotasCadastradas = () => {
@@ -69,10 +75,11 @@ function HomeSupervisorScreen({route, navigation}) {
                   </View>                
               </View>
 
-              
               <View style={styles.boxReportCadastro}>
                 <View style={styles.innerSupervisor}>
+                  <TouchableOpacity onPress={handleCadastroPromotor}>
                     <Text style={styles.textoDivsCadastro}>Cadastrar Promotor</Text>
+                  </TouchableOpacity>
                 </View>
               </View>
             

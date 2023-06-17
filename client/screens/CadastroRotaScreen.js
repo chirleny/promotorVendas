@@ -77,7 +77,6 @@ function CadastroRotaScreen({route, navigation}) {
         sucesso = response.data.msg;
         Toast.show({type: 'success', text1: 'Sucesso', text2: 'Rota para o promotor cadastrada com sucesso!'});
         setTimeout(() => {
-            console.log('$$$$ ' + JSON.stringify(usuario));
             navigation.navigate('HomeSupervisor', {
                 usuario: usuario
             });

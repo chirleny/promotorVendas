@@ -67,7 +67,7 @@ function LoginScreen({navigation}) {
 
   return (
     
-  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: "#DFDEE0" }}>
     <Text style={styles.titulo}>Bem-vindo ao PVendas</Text>
 
       <TextInput
@@ -108,7 +108,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: '#ccc',
     borderWidth: 1,
-    fontFamily: 'Montserrat_300Light'
+    fontFamily: 'Montserrat_300Light',
+    backgroundColor: '#FFFDFD'
   },
   botao: {
     backgroundColor: '#68A54C',

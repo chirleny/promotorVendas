@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'; 
-import { View, Text, Modal, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import Toast from 'react-native-toast-message';
 import Axios from 'axios';
 import {
     useFonts,
@@ -8,41 +9,27 @@ import {
     Montserrat_700Bold,
   } from '@expo-google-fonts/montserrat';
 
-function EditarUsuarioScreen({route, navigation}) {
+function CadastroPromotorScreen({route, navigation}) {
     let sucesso = 'Usuário cadastrado com sucesso!';
+    
     const { usuario } = route.params;
-  
     const [getNome,setNome] = useState();
     const [getSenha,setSenha] = useState();
     const [getEmail,setEmail] = useState();
     const [getCPF,setCPF] = useState();
-    const [getSupervisor,setSupervisor] = useState();
+    const [getEndereco,setEndereco] = useState();
 
-    const [modalVisible, setModalVisible] = useState(false);
     const [errorEmail, setErrorEmail] = useState(false);
     const [errorNome, setErrorNome] = useState(false);
     const [errorSenha, setErrorSenha] = useState(false);
     const [errorCPF, setErrorCPF] = useState(false);
-    const [errorSupervisor, setErrorSupervisor] = useState(false);
+    const [errorEndereco, setErrorEndereco] = useState(false);
 
     let [fontsLoaded] = useFonts({ 
         Montserrat_300Light,
         Montserrat_600SemiBold,
         Montserrat_700Bold,
     });
-
-    const handleLogin = () => {
-        navigation.navigate('Login');
-        setModalVisible(false);
-    };
-    
-    useEffect(()=>{    
-        setNome(usuario.nome);
-        setEmail(usuario.email);
-        setSenha(usuario.senha);
-        setSupervisor(usuario.email_supervisor);
-        setCPF(usuario.cpf);
-    }, [])
   
   const checkCadastro = (values) => {  
     var nomeVazio = getNome == undefined || getNome == '' ? true : false;
@@ -57,32 +44,38 @@ function EditarUsuarioScreen({route, navigation}) {
     var cpfVazio = getCPF == undefined || getCPF == '' ? true : false;
     setErrorCPF(cpfVazio);
 
-    var supervisorVazio = getSupervisor == undefined || getSupervisor == '' ? true : false;
-    setErrorSupervisor(supervisorVazio);
+    var enderecoVazio = getEndereco == undefined || getEndereco == '' ? true : false;
+    setErrorEndereco(enderecoVazio);
 
-    if(!nomeVazio && !emailVazio && !senhaVazia && !cpfVazio && !supervisorVazio){
+    if(!nomeVazio && !emailVazio && !senhaVazia && !cpfVazio && !enderecoVazio){
       handleCadastro();
     }
   };
 
     const handleCadastro = (values) => {
-      navigation.navigate('Cadastro');
-      Axios.post("http://localhost:3001/cadastro", {
+      Axios.post("http://localhost:3001/cadastroPromotor", {
         email: getEmail,
         senha: getSenha,
         nome: getNome,
-        email_supervisor: getSupervisor,
-        cpf: getCPF
+        endereco: getEndereco,
+        email_supervisor: usuario.email,
+        cpf: getCPF,
+        perfil: 'Promotor'
       }).then((response) =>{    
         sucesso = response.data.msg;
-        setModalVisible(true);
+        Toast.show({type: 'success', text1: 'Sucesso', text2: 'Promotor cadastrado com sucesso!'});
+        setTimeout(() => {
+            navigation.navigate('HomeSupervisor', {
+                usuario: usuario
+            });
+        }, 2000)
         console.log(response);
       }); 
     };
 
     return (
         <View style={styles.main}>
-          <Text style={styles.titulo}>Editar meus dados</Text>
+          <Text style={styles.titulo}>Criar conta</Text>
 
             <TextInput style={styles.input} name="nome" placeholder="Nome" onChangeText={text => setNome(text)} value={getNome}/>
             {errorNome ? (<Text style={styles.errorMsg}>Digite o nome</Text>) : ''}
@@ -94,34 +87,18 @@ function EditarUsuarioScreen({route, navigation}) {
             {errorSenha ? (<Text style={styles.errorMsg}>Digite uma senha</Text>) : ''}
 
             <TextInput style={styles.input} placeholder="Repetir Senha" secureTextEntry={true}/>
+
+            <TextInput style={styles.input} placeholder="Endereço" onChangeText={text => setEndereco(text)} value={getEndereco}/>
+            {errorEndereco ? (<Text style={styles.errorMsg}>Digite o endereço</Text>) : ''}
             
             <TextInput style={styles.input} placeholder="CPF" onChangeText={text => setCPF(text)} value={getCPF}/>
             {errorCPF ? (<Text style={styles.errorMsg}>Digite o CPF</Text>) : ''}
 
-            <TextInput style={styles.input} placeholder="E-mail do supervisor" onChangeText={text => setSupervisor(text)} value={getSupervisor}/>
-            {errorSupervisor ? (<Text style={styles.errorMsg}>Digite o e-mail do supervisor</Text>) : ''}
-
             <TouchableOpacity style={styles.botaoCadastro} onPress={checkCadastro}>
-                <Text style={styles.textoBotao}>Editar</Text>
+                <Text style={styles.textoBotao}>Cadastrar</Text>
             </TouchableOpacity>
-        
-          <Modal
-            visible={modalVisible}
-            transparent={true}
-            animationType="fade"
-            onRequestClose={() => {
-              setModalVisible(false);
-          }}>
-            <View style={styles.modalMain}>
-              <View style={styles.modal}>
-                <Text style={styles.textoDivs}>{sucesso}</Text>
-                <Text style={styles.descricaoEmAndamento}>Faça login para acessar sua conta.</Text>
-                <TouchableOpacity style={styles.botaoFazerLogin} onPress={handleLogin}>
-                    <Text style={styles.textoBotao}>Fazer login</Text>
-                </TouchableOpacity>
-              </View>
-              </View>
-            </Modal>
+            <Toast />
+
         </View>
       );
     }
@@ -139,7 +116,7 @@ const styles = StyleSheet.create({
     titulo:{
       fontWeight: 'bold',
       marginTop: 20,
-      marginRight: 160,
+      marginRight: 205,
       fontSize: 20,
       fontFamily: 'Montserrat_700Bold'
     },
@@ -216,4 +193,4 @@ const styles = StyleSheet.create({
   },
   });
 
-export default EditarUsuarioScreen;
+export default CadastroPromotorScreen;

@@ -1,52 +1,60 @@
-/*import { View, StyleSheet } from 'react-native' ; 
-import { 
-requestForegroundPermissionsAsync , 
-getCurrentPositionAsync, 
-LocationObject 
-} from 'expo-location' ; 
-import { useEffect, useState } from 'react';
-import MapView from 'react-native-maps';
+import React, { useState, useEffect } from 'react';
 import {
-    GoogleMap,
-    Marker,
-    LoadScript,
-    StandaloneSearchBox,
-    DirectionsService,
-    DirectionsRenderer,
-  } from "@react-google-maps/api";
+  GoogleMap,
+  useJsApiLoader,
+  Marker
+} from "@react-google-maps/api";
+import "./MapPage.css"
+import Local from '@react-native-community/geolocation';
 
-export default function App() { 
+function MapPageProps(){
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: "AIzaSyDAl-kqKCGsl64oVAy6BelRWBq0CUexXAA"
+  });
 
-const [location, setLocation] = useState<LocationObject | null>(null);
+  useEffect(()=>{    
+    obterLocation();
+}, [])
 
-async function requestLocationPermissions() { 
-const { granted } = await requestForegroundPermissionsAsync(); 
-if (granted) {
-const currentPosition = await getCurrentPositionAsync(); 
-setLocation(currentPosition);
+  const [latit, setLat] = useState(0);
+  const [long, setLong] = useState(0);
 
-console.log('LOC >> ' + JSON.stringify(currentPosition));
-}
-}
+  const obterLocation=()=>{
+      Local.getCurrentPosition(
+          (pos)=>{
+              setLat(pos.coords.latitude)
+              setLong(pos.coords.longitude)
+          },
+          (erro)=>{
+              alert('Erro: ' + erro.message)
+          },
+          {
+              enableHighAccuracy:true, timeout:1200000, maximumAge:1000
+          }
+      )
+  }
 
-useEffect(() => {
-    requestLocationPermissions();
-}, []);
+  return (
+  <div className="map">
+    {isLoaded ? (
+    <GoogleMap
+      mapContainerStyle={{width: '100%', height: '100%'}}
+      center={{
+        lat: latit,
+        lng: long
+      }}
+      zoom={15}>  
+      <Marker position={{
+        lat: latit,
+        lng: long
+      }}/>
+    </GoogleMap>
+    ) : (
+      <></>
+    )}
+  </div>
+);
+};
 
-return ( 
-<View style={styles.container}>
-<MapView style={styles.map} />
-
-</View>
-    );
-}
-
-const styles = StyleSheet.create({
-    map:{
-        flex:1, width:'100%'
-    },
-    container:{
-        flex:1,
-        backgroundColor: '#fff'
-    }
-}) */
+export default MapPageProps;
