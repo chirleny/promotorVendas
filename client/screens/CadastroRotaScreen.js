@@ -3,12 +3,12 @@ import { View, Text, Modal, TextInput, StyleSheet, TouchableOpacity } from 'reac
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Toast from 'react-native-toast-message';
 import Axios from 'axios';
-import {
+/*mport {
     useFonts,
     Montserrat_300Light,
     Montserrat_600SemiBold,
     Montserrat_700Bold,
-  } from '@expo-google-fonts/montserrat';
+  } from '@expo-google-fonts/montserrat';*/
 
 function CadastroRotaScreen({route, navigation}) {
     let sucesso = 'Rota cadastrado com sucesso!';
@@ -43,11 +43,11 @@ function CadastroRotaScreen({route, navigation}) {
         setModalVisible(false);
     };
 
-    let [fontsLoaded] = useFonts({ 
+    /*let [fontsLoaded] = useFonts({ 
         Montserrat_300Light,
         Montserrat_600SemiBold,
         Montserrat_700Bold,
-    });
+    });*/
   
     const checkCadastro = (values) => {  
         var lojaVazia = getLoja == undefined || getLoja == '' ? true : false;

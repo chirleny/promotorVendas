@@ -11,7 +11,6 @@ import  EditarUsuarioScreen  from './screens/EditarUsuarioScreen';
 import  HomeSupervisorScreen  from './screens/HomeSupervisorScreen';
 import  CadastroRotaScreen  from './screens/CadastroRotaScreen';
 import  CadastroPromotorScreen  from './screens/CadastroPromotorScreen';
-import  MapScreen  from './screens/MapScreen'; 
 import  CheckInScreen  from './screens/CheckInScreen'; 
 import  CheckOutScreen  from './screens/CheckOutScreen'; 
 

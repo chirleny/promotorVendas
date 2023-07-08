@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import {
+/*import {
   useFonts,
   Montserrat_300Light,
   Montserrat_500Medium,
   Montserrat_600SemiBold,
   Montserrat_700Bold,
-} from '@expo-google-fonts/montserrat';
-import Axios from 'axios';  
+} from '@expo-google-fonts/montserrat';*/
+import Axios from 'axios';   
 
 function LoginScreen({navigation}) {
   var email;
@@ -20,7 +20,9 @@ function LoginScreen({navigation}) {
   const [errorVazio, setErrorVazio] = useState(false);
 
   const handleLogin = () => {
-      Axios.post("http://localhost:3001/login", {
+    console.log(getEmail);
+    console.log(getSenha);
+      Axios.post("http://192.168.10.3:3001/login", {        
         email: getEmail,
         senha: getSenha,
       }).then((response) =>{
@@ -58,12 +60,12 @@ function LoginScreen({navigation}) {
     }
   };
 
-  let [fontsLoaded] = useFonts({
+  /*let [fontsLoaded] = useFonts({
     Montserrat_300Light,
     Montserrat_500Medium,
     Montserrat_600SemiBold,
     Montserrat_700Bold,
-  });
+  });*/
 
   return (
     
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
   titulo: {
     fontSize: 24,
     marginBottom: 50,
-    fontFamily: 'Montserrat_500Medium'
+    //fontFamily: 'Montserrat_500Medium'
   },
   input: {
     width: '80%',
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: '#ccc',
     borderWidth: 1,
-    fontFamily: 'Montserrat_300Light',
+    //fontFamily: 'Montserrat_300Light',
     backgroundColor: '#FFFDFD'
   },
   botao: {
@@ -131,13 +133,13 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     textAlign: 'center',
-    fontFamily: 'Montserrat_600SemiBold'
+    //fontFamily: 'Montserrat_600SemiBold'
   },
   errorMsg:{
     color: '#A52A2A',
     fontWeight: 'bold',
     fontSize: 15,
-    fontFamily: 'Montserrat_700Bold'
+    //fontFamily: 'Montserrat_700Bold'
   },
 });
 

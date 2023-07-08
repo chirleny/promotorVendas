@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "instaed",
-    "slug": "instaed",
+    "name": "PVendas",
+    "slug": "pvendas",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.chirlenyf.pvendas"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "97fe22bb-13bd-45d3-9fc6-57f7e22e6d6b"
+      }
     }
   }
 }

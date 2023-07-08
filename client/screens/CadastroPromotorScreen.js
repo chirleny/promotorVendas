@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import Toast from 'react-native-toast-message';
 import Axios from 'axios';
-import {
+/*import {
     useFonts,
     Montserrat_300Light,
     Montserrat_600SemiBold,
     Montserrat_700Bold,
-  } from '@expo-google-fonts/montserrat';
+  } from '@expo-google-fonts/montserrat';*/
 
 function CadastroPromotorScreen({route, navigation}) {
     let sucesso = 'Usuário cadastrado com sucesso!';
@@ -25,11 +25,11 @@ function CadastroPromotorScreen({route, navigation}) {
     const [errorCPF, setErrorCPF] = useState(false);
     const [errorEndereco, setErrorEndereco] = useState(false);
 
-    let [fontsLoaded] = useFonts({ 
+    /*let [fontsLoaded] = useFonts({ 
         Montserrat_300Light,
         Montserrat_600SemiBold,
         Montserrat_700Bold,
-    });
+    });*/
   
   const checkCadastro = (values) => {  
     var nomeVazio = getNome == undefined || getNome == '' ? true : false;

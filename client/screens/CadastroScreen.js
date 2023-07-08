@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, Modal, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import Axios from 'axios';
-import {
+/*import {
     useFonts,
     Montserrat_300Light,
     Montserrat_600SemiBold,
     Montserrat_700Bold,
-  } from '@expo-google-fonts/montserrat';
+  } from '@expo-google-fonts/montserrat';*/
+import Styles from './Styles.js'
 
 function CadastroScreen({navigation}) {
     let sucesso = 'Usuário cadastrado com sucesso!';
@@ -24,11 +25,11 @@ function CadastroScreen({navigation}) {
     const [errorCPF, setErrorCPF] = useState(false);
     const [errorSupervisor, setErrorSupervisor] = useState(false);
 
-    let [fontsLoaded] = useFonts({ 
+    /*let [fontsLoaded] = useFonts({ 
         Montserrat_300Light,
         Montserrat_600SemiBold,
         Montserrat_700Bold,
-    });
+    });*/
 
     const handleLogin = () => {
         navigation.navigate('Login');
@@ -48,21 +49,22 @@ function CadastroScreen({navigation}) {
     var cpfVazio = getCPF == undefined || getCPF == '' ? true : false;
     setErrorCPF(cpfVazio);
 
-    var supervisorVazio = getSupervisor == undefined || getSupervisor == '' ? true : false;
-    setErrorSupervisor(supervisorVazio);
+    /*var supervisorVazio = getSupervisor == undefined || getSupervisor == '' ? true : false;
+    setErrorSupervisor(supervisorVazio);*/
 
-    if(!nomeVazio && !emailVazio && !senhaVazia && !cpfVazio && !supervisorVazio){
+    if(!nomeVazio && !emailVazio && !senhaVazia && !cpfVazio){
       handleCadastro();
     }
   };
 
     const handleCadastro = (values) => {
       navigation.navigate('Cadastro');
-      Axios.post("http://localhost:3001/cadastro", {
+      console.log('cadaaaaaaa');
+      Axios.post("http://192.168.10.3:3001/cadastro", {
         email: getEmail,
         senha: getSenha,
         nome: getNome,
-        email_supervisor: getSupervisor,
+        //email_supervisor: getSupervisor,
         cpf: getCPF,
         perfil: 'Supervisor'
       }).then((response) =>{    
@@ -73,25 +75,22 @@ function CadastroScreen({navigation}) {
     };
 
     return (
-        <View style={styles.main}>
-          <Text style={styles.titulo}>Criar conta</Text>
-
-            <TextInput style={styles.input} name="nome" placeholder="Nome" onChangeText={text => setNome(text)} value={getNome}/>
+        <View style={Styles.main}>
+          <Text style={Styles.titulo}>Criar conta</Text>
+            
+            <TextInput style={Styles.input} name="nome" placeholder="Nome" onChangeText={text => setNome(text)} value={getNome}/>
             {errorNome ? (<Text style={styles.errorMsg}>Digite o nome</Text>) : ''}
 
-            <TextInput style={styles.input} required="true" name="email" placeholder="E-mail" onChangeText={text => setEmail(text)} value={getEmail} />
+            <TextInput style={Styles.input} required="true" name="email" placeholder="E-mail" onChangeText={text => setEmail(text)} value={getEmail} />
             {errorEmail ? (<Text style={styles.errorMsg}>Digite o e-mail</Text>) : ''}
 
-            <TextInput style={styles.input} placeholder="Senha" secureTextEntry={true} onChangeText={text => setSenha(text)} value={getSenha}/>
+            <TextInput style={Styles.input} placeholder="Senha" secureTextEntry={true} onChangeText={text => setSenha(text)} value={getSenha}/>
             {errorSenha ? (<Text style={styles.errorMsg}>Digite uma senha</Text>) : ''}
 
-            <TextInput style={styles.input} placeholder="Repetir Senha" secureTextEntry={true}/>
+            <TextInput style={Styles.input} placeholder="Repetir Senha" secureTextEntry={true}/>
             
-            <TextInput style={styles.input} placeholder="CPF" onChangeText={text => setCPF(text)} value={getCPF}/>
-            {errorCPF ? (<Text style={styles.errorMsg}>Digite o CPF</Text>) : ''}
-
-            <TextInput style={styles.input} placeholder="E-mail do supervisor" onChangeText={text => setSupervisor(text)} value={getSupervisor}/>
-            {errorSupervisor ? (<Text style={styles.errorMsg}>Digite o e-mail do supervisor</Text>) : ''}
+            <TextInput style={Styles.input} placeholder="CPF" onChangeText={text => setCPF(text)} value={getCPF}/>
+            {errorCPF ? (<Text style={styles.errorMsg}>Digite o CPF</Text>) : ''}    
 
             <TouchableOpacity style={styles.botaoCadastro} onPress={checkCadastro}>
                 <Text style={styles.textoBotao}>Cadastrar</Text>
@@ -119,40 +118,14 @@ function CadastroScreen({navigation}) {
     }
 
 
-
 const styles = StyleSheet.create({  
-    main:{
-      backgroundColor: "#DFDEE0", 
-      flex: 1,
-      alignItems: 'center', 
-      justifyContent: 'center', 
-      fontWeight: 'bold'
-    },
-    titulo:{
-      fontWeight: 'bold',
-      marginTop: 20,
-      marginRight: 205,
-      fontSize: 20,
-      fontFamily: 'Montserrat_700Bold'
-    },
     errorMsg:{
       color: '#A52A2A',
       fontWeight: 'bold',
       fontSize: 15,
       fontFamily: 'Montserrat_700Bold'
     },
-    input: {
-      width: '85%',
-      marginVertical: 20,
-      padding: 10,
-      borderRadius: 5,
-      borderWidth: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      flex: 1,
-      backgroundColor: '#FFFDFD',
-      fontFamily: 'Montserrat_300Light'
-    },
+
     botaoCadastro: {
       width: '85%',
       backgroundColor: '#0C0B0B',

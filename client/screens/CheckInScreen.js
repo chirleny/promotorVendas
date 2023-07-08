@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity  } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import {
+/*import {
   useFonts,
   Montserrat_400Regular,
   Montserrat_600SemiBold,
   Montserrat_700Bold,
-} from '@expo-google-fonts/montserrat';
-import  MapScreen  from './MapScreen'; 
+} from '@expo-google-fonts/montserrat';*/
+import  MapScreen  from './NewMapScreen'; 
 
 function HomeScreen({navigation}) {
 
-    let [fontsLoaded] = useFonts({
+    /*let [fontsLoaded] = useFonts({
       Montserrat_400Regular,
       Montserrat_600SemiBold,
       Montserrat_700Bold,
-    });
+    });*/
 
     return (    
         <View style={styles.container}>

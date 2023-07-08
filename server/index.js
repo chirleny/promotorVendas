@@ -56,20 +56,21 @@ app.post('/cadastro', (req, res) => {
     const email = req.body.email;
     const senha = req.body.senha;
     const nome = req.body.nome;
-    const email_supervisor = req.body.email_supervisor;
+    //const email_supervisor = req.body.email_supervisor;
     const cpf = req.body.cpf;
     const perfil = req.body.perfil;
     
     db.query("SELECT * FROM usuario WHERE email = ?", [email], (err, result) => {
-        if(err){
-            res.send(err);  
-        }
         if(result.length == 0){
-            db.query("INSERT INTO usuario (email, senha, nome, email_supervisor, cpf, perfil) VALUES (?, ?, ?, ?, ?, ?)", [email, senha, nome, email_supervisor, cpf, perfil], (err, response) => {
+            //db.query("INSERT INTO usuario (email, senha, nome, email_supervisor, cpf, perfil) VALUES (?, ?, ?, ?, ?, ?)", [email, senha, nome, email_supervisor, cpf, perfil], (err, response) => {
+            db.query("INSERT INTO usuario (email, senha, nome, cpf, perfil) VALUES (?, ?, ?, ?, ?)", [email, senha, nome, cpf, perfil], (err, response) => {
                 if(err){
+                    console.log('Erro no cadastro: ' + err);
                     res.send(err);  
+                }else{
+                    res.send({msg: "Cadastrado com sucesso"}) 
                 }
-                res.send({msg: "Cadastrado com sucesso"}) 
+                
             });
         }else{
             res.send({msg: "Usuário já cadastrado."})

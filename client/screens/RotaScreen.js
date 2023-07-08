@@ -17,7 +17,7 @@ function RotaScreen({route, navigation}) {
     };
 
     useEffect(()=>{    
-        Axios.post("http://localhost:3001/rotasPromotor", {promotor: usuario.id}).then((response) =>{
+        Axios.post("http://192.168.10.3:3001/rotasPromotor", {promotor: usuario.id}).then((response) =>{
             setData(response.data.rotas);
         });  
       }, [isFocused])  
@@ -38,10 +38,14 @@ function RotaScreen({route, navigation}) {
                 <View style={styles.box} key={i}>
                     <View style={styles.inner} >
                         <Text style={styles.textoDivs}>{linha.loja}</Text>
-                        <Text style={styles.descricaoEmAndamento}>10h - 11h</Text>
-                        <TouchableOpacity style={styles.botaoCadastro} onPress={handleCheckIn}>
-                            <Text style={styles.textoBotao}>Iniciar Rota</Text>
-                        </TouchableOpacity>              
+                        <Text style={styles.descricaoEmAndamento}>10h - 11h</Text>                        
+                        {i == 0 ? (
+                            <TouchableOpacity style={styles.botaoCadastro} onPress={handleCheckIn}>
+                                <Text style={styles.textoBotao}>Iniciar Rota</Text>
+                            </TouchableOpacity>
+                        ) : (
+                            <></>
+                        )}             
                     </View>
                 </View>                    
 
@@ -61,9 +65,9 @@ function RotaScreen({route, navigation}) {
                     <View style={styles.inner}>
                         <Text style={styles.textoDivs}>Supermercado Pernambucano</Text>
                         <Text style={styles.descricaoEmAndamento}>10h - 11h</Text>
-                        <TouchableOpacity style={styles.botaoCadastro}>
-                            <Text style={styles.textoBotao}>Baixar relatório</Text>
-                        </TouchableOpacity>
+                            <TouchableOpacity style={styles.botaoCadastro}>
+                                <Text style={styles.textoBotao}>Baixar relatório</Text>
+                            </TouchableOpacity>
                     </View>
                 </View>
             </View>

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Modal, StyleSheet, TouchableOpacity  } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import {
+/*import {
   useFonts,
   Montserrat_400Regular,
   Montserrat_600SemiBold,
   Montserrat_700Bold,
-} from '@expo-google-fonts/montserrat';
+} from '@expo-google-fonts/montserrat';*/
 
 function HomeScreen({route, navigation}) {
       
@@ -40,11 +40,11 @@ function HomeScreen({route, navigation}) {
       setModalVisible(false);
     };
 
-    let [fontsLoaded] = useFonts({
+    /*let [fontsLoaded] = useFonts({
       Montserrat_400Regular,
       Montserrat_600SemiBold,
       Montserrat_700Bold,
-    });
+    });*/
 
     return (    
         <View style={styles.container}>

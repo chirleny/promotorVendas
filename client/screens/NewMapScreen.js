@@ -1,5 +1,5 @@
-/*import React, { useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet } from 'react-native';
 import {
   GoogleMap,
   useJsApiLoader,
@@ -7,9 +7,9 @@ import {
 } from "@react-google-maps/api";
 //import "./MapPage.css"
 import Styles from './Styles.js'
-//import Local from '@react-native-community/geolocation';
+import Local from '@react-native-community/geolocation';
 
-function MapPageProps(){
+function MapScreen(){
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyDAl-kqKCGsl64oVAy6BelRWBq0CUexXAA"
@@ -24,11 +24,10 @@ function MapPageProps(){
 
   const obterLocation=()=>{
 
-    setLat(-8.0355445);
-    setLong(35.0057588);
-    35.0057588
-      /*Local.getCurrentPosition(
-          (pos)=>{
+    //setLat(-8.0355445);
+    //setLong(-35.0057588);
+      Local.getCurrentPosition(
+          (pos)=>{ 
               setLat(pos.coords.latitude)
               setLong(pos.coords.longitude)
           },
@@ -38,11 +37,11 @@ function MapPageProps(){
           {
               enableHighAccuracy:true, timeout:1200000, maximumAge:1000
           }
-      )*/
-  /*}
+      )
+  } 
 
   return (
-  <div style={Styles.map}>
+  <View style={Styles.map}>
     {isLoaded ? (
     <GoogleMap
       mapContainerStyle={{width: '100%', height: '100%'}}
@@ -59,8 +58,8 @@ function MapPageProps(){
     ) : (
       <></>
     )}
-  </div>
+  </View>
 );
 };
 
-export default MapPageProps;*/
+export default MapScreen;
