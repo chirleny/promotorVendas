@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Modal, Image, StyleSheet, TouchableOpacity  } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import {
-  useFonts,
-  Montserrat_400Regular,
-  Montserrat_600SemiBold,
-  Montserrat_700Bold,
-} from '@expo-google-fonts/montserrat';
 
 function HomeSupervisorScreen({route, navigation}) {
       
@@ -18,7 +12,9 @@ function HomeSupervisorScreen({route, navigation}) {
     const [modalVisible, setModalVisible] = useState(false);
 
     const handleRota = () => {
-        navigation.navigate('Rota');
+      navigation.navigate('Rota', {
+        usuario: usuario
+      });
     };
     const handleRotasConcluidas = () => {
       navigation.navigate('RotasConcluidas');
@@ -49,12 +45,6 @@ function HomeSupervisorScreen({route, navigation}) {
     const handleCloseModal = () => {
       setModalVisible(false);
     };
-
-    let [fontsLoaded] = useFonts({
-      Montserrat_400Regular,
-      Montserrat_600SemiBold,
-      Montserrat_700Bold,
-    });
 
     return (    
         <View style={styles.container}>
@@ -199,27 +189,22 @@ const styles = StyleSheet.create({
     },
     textoDivs:{
         fontSize: 15,
-        fontFamily: 'Montserrat_600SemiBold'
     },
     textoDivsCadastro:{
         fontSize: 14,
         color: '#FFF9F9',
-        fontFamily: 'Montserrat_400Regular'
     },
     descricaoEmAndamento:{
         fontSize: 17,
         paddingBottom: 10,
-        fontFamily: 'Montserrat_400Regular'
     },
     titulo:{
         fontWeight: 'bold',
         fontSize: 18,
-        fontFamily: 'Montserrat_700Bold'
     },
     tituloRota:{
         fontWeight: 'bold',
         fontSize: 18,
-        fontFamily: 'Montserrat_700Bold'
     },
     botaoCadastro: {
         width: '85%',
@@ -255,13 +240,11 @@ const styles = StyleSheet.create({
     color: '#0C0B0B',
     fontWeight: 'bold',
     textAlign: 'center',
-    fontFamily: 'Montserrat_400Regular'
   },
     textoBotao: {
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',
-        fontFamily: 'Montserrat_400Regular'
     },
     icon:{
       padding: 15,

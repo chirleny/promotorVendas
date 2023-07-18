@@ -1,21 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity  } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import {
-  useFonts,
-  Montserrat_400Regular,
-  Montserrat_600SemiBold,
-  Montserrat_700Bold,
-} from '@expo-google-fonts/montserrat';
-import  MapScreen  from './MapScreen'; 
+//import  MapScreen  from './MapScreen'; 
 
 function CheckOutScreen({navigation}) {
-
-    let [fontsLoaded] = useFonts({
-      Montserrat_400Regular,
-      Montserrat_600SemiBold,
-      Montserrat_700Bold,
-    });
 
     return (    
         <View style={styles.container}>
@@ -27,7 +15,7 @@ function CheckOutScreen({navigation}) {
             </View> 
             <Text style={styles.tituloCheckOut}>Check-Out</Text>
             <View style={styles.containerNew}>
-                <MapScreen />
+                
             </View>
 
             <View style={styles.main}>              
@@ -59,7 +47,6 @@ const styles = StyleSheet.create({
     tituloCheckOut:{
         fontWeight: 'bold',
         fontSize: 18,
-        fontFamily: 'Montserrat_700Bold',
         marginLeft: 25
     },
     box:{
@@ -70,7 +57,6 @@ const styles = StyleSheet.create({
     titulo:{
         fontWeight: 'bold',
         fontSize: 18,
-        fontFamily: 'Montserrat_700Bold'
     },
     botaoCadastro: {
         width: '85%',
@@ -96,7 +82,6 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',
-        fontFamily: 'Montserrat_400Regular',       
     },
     main: {
         justifyContent: 'center',

@@ -1,21 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity  } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-/*import {
-  useFonts,
-  Montserrat_400Regular,
-  Montserrat_600SemiBold,
-  Montserrat_700Bold,
-} from '@expo-google-fonts/montserrat';*/
 import  MapScreen  from './NewMapScreen'; 
 
 function HomeScreen({navigation}) {
-
-    /*let [fontsLoaded] = useFonts({
-      Montserrat_400Regular,
-      Montserrat_600SemiBold,
-      Montserrat_700Bold,
-    });*/
 
     return (    
         <View style={styles.container}>
@@ -64,12 +52,10 @@ const styles = StyleSheet.create({
     titulo:{
         fontWeight: 'bold',
         fontSize: 18,
-        fontFamily: 'Montserrat_700Bold'
     },
     tituloCheckIn:{
         fontWeight: 'bold',
         fontSize: 18,
-        fontFamily: 'Montserrat_700Bold',
         marginLeft: 25
     },
     botaoCadastro: {
@@ -96,7 +82,6 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',
-        fontFamily: 'Montserrat_400Regular',       
     },
     main: {
         justifyContent: 'center',

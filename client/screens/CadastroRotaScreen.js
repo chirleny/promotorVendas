@@ -3,12 +3,7 @@ import { View, Text, Modal, TextInput, StyleSheet, TouchableOpacity } from 'reac
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Toast from 'react-native-toast-message';
 import Axios from 'axios';
-/*mport {
-    useFonts,
-    Montserrat_300Light,
-    Montserrat_600SemiBold,
-    Montserrat_700Bold,
-  } from '@expo-google-fonts/montserrat';*/
+import Styles from './Styles.js'
 
 function CadastroRotaScreen({route, navigation}) {
     let sucesso = 'Rota cadastrado com sucesso!';
@@ -27,7 +22,9 @@ function CadastroRotaScreen({route, navigation}) {
     const [errorDuracao, setErrorDuracao] = useState(false);
 
     const handlePromotor = () => {
-        Axios.post("http://localhost:3001/promotores").then((response) =>{
+      console.log('#######');
+        Axios.post("http://192.168.10.3:3001/promotores").then((response) =>{
+          console.log('¨¨¨¨¨ ' + JSON.stringify(response.data.promotores));
             setData(response.data.promotores);
             setModalVisible(true);
         });         
@@ -42,12 +39,6 @@ function CadastroRotaScreen({route, navigation}) {
         setPromotorId(id);
         setModalVisible(false);
     };
-
-    /*let [fontsLoaded] = useFonts({ 
-        Montserrat_300Light,
-        Montserrat_600SemiBold,
-        Montserrat_700Bold,
-    });*/
   
     const checkCadastro = (values) => {  
         var lojaVazia = getLoja == undefined || getLoja == '' ? true : false;
@@ -68,7 +59,7 @@ function CadastroRotaScreen({route, navigation}) {
     };
 
     const handleCadastro = (values) => {
-      Axios.post("http://localhost:3001/cadastroRota", {
+      Axios.post("http://192.168.10.3:3001/cadastroRota", {
         promotor: getPromotorId,
         localizacao: getLocalizacao,
         loja: getLoja,
@@ -76,34 +67,32 @@ function CadastroRotaScreen({route, navigation}) {
       }).then((response) =>{    
         sucesso = response.data.msg;
         Toast.show({type: 'success', text1: 'Sucesso', text2: 'Rota para o promotor cadastrada com sucesso!'});
-        setTimeout(() => {
+        /*setTimeout(() => {
             navigation.navigate('HomeSupervisor', {
                 usuario: usuario
             });
-        }, 2000)
+        }, 2000)*/
       }); 
     };
 
     return (
-        <View style={styles.main}>
-          <Text style={styles.titulo}>Cadastrar rota</Text>
+        <View style={Styles.main}>
+          <Text style={Styles.titulo}>Cadastrar rota</Text>
 
-            <TextInput style={styles.input} name="loja" placeholder="Loja" onChangeText={text => setLoja(text)} value={getLoja}/>
+            <TextInput style={Styles.input} name="loja" placeholder="Loja" onChangeText={text => setLoja(text)} value={getLoja}/>
             {errorLoja ? (<Text style={styles.errorMsg}>Digite a Loja</Text>) : ''}
 
-            <TextInput style={styles.input} required="true" name="endereco" placeholder="Endereço" onChangeText={text => setLocalizacao(text)} value={getLocalizacao} />
+            <TextInput style={Styles.input} required="true" name="endereco" placeholder="Endereço" onChangeText={text => setLocalizacao(text)} value={getLocalizacao} />
             {errorLocalizacao ? (<Text style={styles.errorMsg}>Digite o endereço</Text>) : ''}
 
-            <TextInput style={styles.input} placeholder="Promotor responsável" onClick={handlePromotor} onChangeText={text => setPromotor(text)} value={getPromotor}/>
+            <TextInput style={Styles.input} placeholder="Promotor responsável" onFocus={handlePromotor} onChangeText={text => setPromotor(text)} value={getPromotor}/>
             {errorPromotor ? (<Text style={styles.errorMsg}>Digite um promotor</Text>) : ''}
 
-            <TextInput style={styles.input} placeholder="Data e Hora" />
-            <TextInput style={styles.input} placeholder="Duração" onChangeText={text => setDuracao(text)} value={getDuracao}/>
+            <TextInput style={Styles.input} placeholder="Data e Hora" />
+            <TextInput style={Styles.input} placeholder="Duração" onChangeText={text => setDuracao(text)} value={getDuracao}/>
             {errorDuracao ? (<Text style={styles.errorMsg}>Digite uma duração</Text>) : ''}
-
-            <TextInput style={styles.input} placeholder="Produtos ofertados"/>
            
-            <TouchableOpacity style={styles.botaoCadastro} onPress={checkCadastro}>
+            <TouchableOpacity style={Styles.botaoCadastro} onPress={checkCadastro}>
                 <Text style={styles.textoBotao}>Cadastrar</Text>
             </TouchableOpacity>
             <Toast />
@@ -114,15 +103,15 @@ function CadastroRotaScreen({route, navigation}) {
             onRequestClose={() => {
               setModalVisible(false);
           }}>
-            <View style={styles.modalMain}>
-              <View style={styles.modal}>
+            <View style={Styles.modalMain}>
+              <View style={Styles.modal}>
                 <TouchableOpacity onPress={handleCloseModal}>
                 <Ionicons style={styles.iconClose} name="close" size={25} />
                 </TouchableOpacity>
 
                 <Text style={styles.textoDivs}>Selecionar Promotor</Text>
                 <TouchableOpacity style={styles.botaoInfos}>
-                  <TextInput style={styles.inputPromotorModal} placeholder="Digite o nome do Promotor" />
+                  <TextInput style={Styles.inputPromotorModal} placeholder="Digite o nome do Promotor" />
                 </TouchableOpacity>
 
                 {
@@ -130,7 +119,7 @@ function CadastroRotaScreen({route, navigation}) {
                     <View style={styles.box} key={i}>
                         <View style={styles.header}>
                             <TouchableOpacity onPress={() => handleSelectPromotor(linha.nome, linha.id)}>
-                                <Ionicons  style={styles.icon} name="person-outline" size={35} />                                
+                                <Ionicons style={styles.icon} name="person-outline" size={35} />                                
                             </TouchableOpacity>     
                             <TouchableOpacity onPress={() => handleSelectPromotor(linha.nome, linha.id)}>
                                 <Text style={styles.lstPromotor}>{linha.nome}</Text>   
@@ -154,7 +143,7 @@ function CadastroRotaScreen({route, navigation}) {
 const styles = StyleSheet.create({  
     header:{
         width: '100%',
-        height: '15%',
+        //height: '15%',
         alignItems: 'center',
         backgroundColor: '#DFDEE0',
         flexDirection:'row'
@@ -169,26 +158,22 @@ const styles = StyleSheet.create({
     icon:{
         fontWeight: 'bold',
         fontSize: 20,
-        fontFamily: 'Montserrat_300Light'
     },
     titulo:{
       fontWeight: 'bold',
       marginTop: 20,
       marginRight: 170,
       fontSize: 20,
-      fontFamily: 'Montserrat_700Bold'
     },
     lstPromotor:{
         fontWeight: 'bold',
         fontSize: 15,
         padding: 10,
-        fontFamily: 'Montserrat_300Light'
       },
     errorMsg:{
       color: '#A52A2A',
       fontWeight: 'bold',
       fontSize: 15,
-      fontFamily: 'Montserrat_700Bold'
     },
     input: {
       width: '85%',
@@ -200,21 +185,8 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       flex: 1,
       backgroundColor: '#FFFDFD',
-      fontFamily: 'Montserrat_300Light'
     },
-    inputPromotorModal: {
-        width: '100%',
-        marginVertical: 10,
-        padding: 10,
-        marginBottom: 20,
-        borderRadius: 5,
-        borderWidth: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-        backgroundColor: '#FFFDFD',
-        fontFamily: 'Montserrat_300Light'
-      },
+
     botaoCadastro: {
       width: '85%',
       backgroundColor: '#0C0B0B',
@@ -242,27 +214,11 @@ const styles = StyleSheet.create({
       color: '#fff',
       fontWeight: 'bold',
       textAlign: 'center',
-      fontFamily: 'Montserrat_600SemiBold'
     },
-    modal:{
-      backgroundColor: '#DFDEE0', 
-      margin: 20,
-      padding: 20,
-      borderRadius: 10,
-      elevation:1,   
-      justifyContent: 'center',   
-    },
-    modalMain:{
-      backgroundColor: 'rgba(0,0,0,0.5)',    
-      height: '100%',
-      alignItems: 'center',
-      justifyContent: 'center',
-      flex: 1,
-    },
+
     textoDivs:{
       fontWeight: 'bold',
       fontSize: 17,
-      fontFamily: 'Montserrat_600SemiBold',
       marginRight: 100,
     },
     descricaoEmAndamento:{
@@ -270,7 +226,6 @@ const styles = StyleSheet.create({
       fontSize: 16,
       color: '#F0E3E3',
       fontWeight: 'bold',
-      fontFamily: 'Montserrat_600SemiBold'
     },
 
   });

@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-/*import {
-  useFonts,
-  Montserrat_300Light,
-  Montserrat_500Medium,
-  Montserrat_600SemiBold,
-  Montserrat_700Bold,
-} from '@expo-google-fonts/montserrat';*/
 import Axios from 'axios';   
+import Styles from './Styles.js';
 
 function LoginScreen({navigation}) {
   var email;
@@ -60,13 +54,6 @@ function LoginScreen({navigation}) {
     }
   };
 
-  /*let [fontsLoaded] = useFonts({
-    Montserrat_300Light,
-    Montserrat_500Medium,
-    Montserrat_600SemiBold,
-    Montserrat_700Bold,
-  });*/
-
   return (
     
   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: "#DFDEE0" }}>
@@ -100,7 +87,6 @@ const styles = StyleSheet.create({
   titulo: {
     fontSize: 24,
     marginBottom: 50,
-    //fontFamily: 'Montserrat_500Medium'
   },
   input: {
     width: '80%',
@@ -110,7 +96,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: '#ccc',
     borderWidth: 1,
-    //fontFamily: 'Montserrat_300Light',
     backgroundColor: '#FFFDFD'
   },
   botao: {
@@ -133,13 +118,11 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     textAlign: 'center',
-    //fontFamily: 'Montserrat_600SemiBold'
   },
   errorMsg:{
     color: '#A52A2A',
     fontWeight: 'bold',
     fontSize: 15,
-    //fontFamily: 'Montserrat_700Bold'
   },
 });
 

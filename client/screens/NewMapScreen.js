@@ -1,65 +1,53 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
-import {
-  GoogleMap,
-  useJsApiLoader,
-  Marker
-} from "@react-google-maps/api";
-//import "./MapPage.css"
-import Styles from './Styles.js'
-import Local from '@react-native-community/geolocation';
+import React, {useState, useEffect, useRef} from 'react';
+import MapView from 'react-native-maps';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import * as Location from 'expo-location';
+import * as Permissions from 'expo-permissions';
 
-function MapScreen(){
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: "AIzaSyDAl-kqKCGsl64oVAy6BelRWBq0CUexXAA"
-  });
-
-  useEffect(()=>{    
-    obterLocation();
-}, [])
-
-  const [latit, setLat] = useState(0);
-  const [long, setLong] = useState(0);
-
-  const obterLocation=()=>{
-
-    //setLat(-8.0355445);
-    //setLong(-35.0057588);
-      Local.getCurrentPosition(
-          (pos)=>{ 
-              setLat(pos.coords.latitude)
-              setLong(pos.coords.longitude)
-          },
-          (erro)=>{
-              alert('Erro: ' + erro.message)
-          },
-          {
-              enableHighAccuracy:true, timeout:1200000, maximumAge:1000
-          }
-      )
-  } 
+export default function App() {
+    const [location, setLocation] = useState(null);
+    const [errorMsg, setErrorMsg] = useState(null);
+    const [origin, setOrigin] = useState(null);
+  
+    useEffect(() => {
+      (async () => {
+        
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          setErrorMsg('Permission to access location was denied');
+          return;
+        }else{
+            let location = await Location.getCurrentPositionAsync({});
+            setLocation(location);
+            setOrigin({
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+                latitudeDelta: 0.000922,
+                longitudeDelta: 0.000421
+            })
+        }
+      })();
+    }, []);
 
   return (
-  <View style={Styles.map}>
-    {isLoaded ? (
-    <GoogleMap
-      mapContainerStyle={{width: '100%', height: '100%'}}
-      center={{
-        lat: latit,
-        lng: long
-      }}
-      zoom={15}>  
-      <Marker position={{
-        lat: latit,
-        lng: long
-      }}/>
-    </GoogleMap>
-    ) : (
-      <></>
-    )}
-  </View>
-);
-};
+    <View style={styles.container}>
+      <MapView initialRegion={origin}
+        showsUserLocation={true}
+        style={styles.map} />
+    </View>
+  );
+}
 
-export default MapScreen;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  map:{
+    height: '100%',
+    width:'100%'
+  }
+
+});

@@ -3,10 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity  } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useIsFocused } from "@react-navigation/native";
 import Axios from 'axios';
-import { useFonts, Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold } from '@expo-google-fonts/montserrat';
 
 function RotaScreen({route, navigation}) {
-    let [fontsLoaded] = useFonts({ Montserrat_400Regular, Montserrat_600SemiBold, Montserrat_700Bold });
     const { usuario } = route.params;
     const isFocused = useIsFocused();
 
@@ -86,7 +84,6 @@ const styles = StyleSheet.create({
     titulo:{
         fontWeight: 'bold',
         fontSize: 18,
-        fontFamily: 'Montserrat_700Bold'
     },
     header:{
         width: '100%',
@@ -125,12 +122,10 @@ const styles = StyleSheet.create({
         fontSize: 17,
         color: '#F0E3E3',
         fontWeight: 'bold',
-        fontFamily: 'Montserrat_600SemiBold'
     },
     textoDivs:{
         fontWeight: 'bold',
         fontSize: 17,
-        fontFamily: 'Montserrat_600SemiBold'
     },
     botaoCadastro: {
         width: '85%',
@@ -147,7 +142,6 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         textAlign: 'center',
-        fontFamily: 'Montserrat_600SemiBold'
     },
     boxTitulo:{
         width: '100%',
@@ -156,7 +150,6 @@ const styles = StyleSheet.create({
     tituloRota:{
         fontWeight: 'bold',
         fontSize: 18,
-        fontFamily: 'Montserrat_700Bold'
     },
 });
 

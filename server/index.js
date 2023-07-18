@@ -78,6 +78,35 @@ app.post('/cadastro', (req, res) => {
     }); 
 });
 
+
+app.post('/editarUsuario', (req, res) => {
+    const email = req.body.email;
+    const senha = req.body.senha;
+    const nome = req.body.nome;
+    const cpf = req.body.cpf;
+    const id = req.body.id;
+    
+    var sqlQuery = "UPDATE usuario SET email = '" + email + "' , nome = '" + nome + "' , senha = '" + senha +  "' , cpf = '" + cpf + "' WHERE id = " + id;
+    console.log('--- ' + sqlQuery);
+    db.query("SELECT * FROM usuario WHERE id = ?", [id], (err, result) => {
+        if(result.length != 0){
+            /*UPDATE usuario
+SET email = 'teste@22', nome = 'teste'
+WHERE id = '122';*/
+            //db.query("INSERT INTO usuario (email, senha, nome, email_supervisor, cpf, perfil) VALUES (?, ?, ?, ?, ?, ?)", [email, senha, nome, email_supervisor, cpf, perfil], (err, response) => {
+            db.query(sqlQuery, (err, response) => {
+                if(err){
+                    console.log('Erro na edição: ' + err);
+                    res.send(err);  
+                }else{
+                    res.send({msg: "Atualizado com sucesso"}) 
+                }
+                
+            });
+        }  
+    }); 
+});
+
 app.post('/cadastroPromotor', (req, res) => {
     const email = req.body.email;
     const senha = req.body.senha;
@@ -109,12 +138,19 @@ app.post('/cadastroRota', (req, res) => {
     const localizacao = req.body.localizacao;
     const promotor = req.body.promotor;
     const duracao = req.body.duracao;
+
+    console.log('1 ' + loja);
+    console.log('1 ' + localizacao);
+    console.log('1 ' + promotor);
+    console.log('1 ' + duracao);
     
     db.query("INSERT INTO rota (loja, localizacao, promotor, duracao) VALUES (?, ?, ?, ?)", [loja, localizacao, promotor, duracao], (err, response) => {
         if(err){
             res.send(err);  
+        }else{
+            res.send({msg: "Rota cadastrada com sucesso"});
         }
-        res.send({msg: "Rota cadastrada com sucesso"}) 
+        
     });
 });
 

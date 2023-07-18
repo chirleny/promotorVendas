@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from 'react'; 
 import { View, Text, Modal, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import Axios from 'axios';
-import {
-    useFonts,
-    Montserrat_300Light,
-    Montserrat_600SemiBold,
-    Montserrat_700Bold,
-  } from '@expo-google-fonts/montserrat';
+import Styles from './Styles.js'
 
 function EditarUsuarioScreen({route, navigation}) {
-    let sucesso = 'Usuário cadastrado com sucesso!';
+    let sucesso = 'Atualizado com sucesso.';
     const { usuario } = route.params;
   
     const [getNome,setNome] = useState();
     const [getSenha,setSenha] = useState();
     const [getEmail,setEmail] = useState();
     const [getCPF,setCPF] = useState();
+    const [getId,setId] = useState();
+    const [getUser,setUser] = useState();
     const [getSupervisor,setSupervisor] = useState();
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -24,12 +21,6 @@ function EditarUsuarioScreen({route, navigation}) {
     const [errorSenha, setErrorSenha] = useState(false);
     const [errorCPF, setErrorCPF] = useState(false);
     const [errorSupervisor, setErrorSupervisor] = useState(false);
-
-    let [fontsLoaded] = useFonts({ 
-        Montserrat_300Light,
-        Montserrat_600SemiBold,
-        Montserrat_700Bold,
-    });
 
     const handleLogin = () => {
         navigation.navigate('Login');
@@ -40,8 +31,10 @@ function EditarUsuarioScreen({route, navigation}) {
         setNome(usuario.nome);
         setEmail(usuario.email);
         setSenha(usuario.senha);
-        setSupervisor(usuario.email_supervisor);
+        //setSupervisor(usuario.email_supervisor);
         setCPF(usuario.cpf);
+        setId(usuario.id);
+        setUser(usuario);
     }, [])
   
   const checkCadastro = (values) => {  
@@ -57,51 +50,54 @@ function EditarUsuarioScreen({route, navigation}) {
     var cpfVazio = getCPF == undefined || getCPF == '' ? true : false;
     setErrorCPF(cpfVazio);
 
-    var supervisorVazio = getSupervisor == undefined || getSupervisor == '' ? true : false;
-    setErrorSupervisor(supervisorVazio);
+    /*var supervisorVazio = getSupervisor == undefined || getSupervisor == '' ? true : false;
+    setErrorSupervisor(supervisorVazio);*/
 
-    if(!nomeVazio && !emailVazio && !senhaVazia && !cpfVazio && !supervisorVazio){
+    if(!nomeVazio && !emailVazio && !senhaVazia && !cpfVazio){
       handleCadastro();
     }
   };
 
     const handleCadastro = (values) => {
-      navigation.navigate('Cadastro');
-      Axios.post("http://localhost:3001/cadastro", {
+      Axios.post("http://192.168.10.3:3001/editarUsuario", {
         email: getEmail,
         senha: getSenha,
         nome: getNome,
-        email_supervisor: getSupervisor,
-        cpf: getCPF
+        //email_supervisor: getSupervisor,
+        cpf: getCPF,
+        id: getId
       }).then((response) =>{    
         sucesso = response.data.msg;
         setModalVisible(true);
-        console.log(response);
+        //navigation.navigate('Home', {
+          //usuario: getUser
+        //});
       }); 
     };
 
     return (
-        <View style={styles.main}>
-          <Text style={styles.titulo}>Editar meus dados</Text>
+        <View style={Styles.main}>
+          <Text style={Styles.titulo}>Editar meus dados</Text>
+            <Text style={Styles.labelsCadastro}>Nome</Text>  
+            <TextInput style={Styles.input} name="nome" onChangeText={text => setNome(text)} value={getNome}/>
+            {errorNome ? (<Text style={Styles.errorMsg}>Digite o nome</Text>) : ''}
 
-            <TextInput style={styles.input} name="nome" placeholder="Nome" onChangeText={text => setNome(text)} value={getNome}/>
-            {errorNome ? (<Text style={styles.errorMsg}>Digite o nome</Text>) : ''}
+            <Text style={Styles.labelsCadastro}>E-mail</Text>  
+            <TextInput style={Styles.input} required="true" name="email" onChangeText={text => setEmail(text)} value={getEmail} />
+            {errorEmail ? (<Text style={Styles.errorMsg}>Digite o e-mail</Text>) : ''}
 
-            <TextInput style={styles.input} required="true" name="email" placeholder="E-mail" onChangeText={text => setEmail(text)} value={getEmail} />
-            {errorEmail ? (<Text style={styles.errorMsg}>Digite o e-mail</Text>) : ''}
+            <Text style={Styles.labelsCadastro}>Senha</Text>  
+            <TextInput style={Styles.input} secureTextEntry={true} onChangeText={text => setSenha(text)} value={getSenha}/>
+            {errorSenha ? (<Text style={Styles.errorMsg}>Digite uma senha</Text>) : ''}
 
-            <TextInput style={styles.input} placeholder="Senha" secureTextEntry={true} onChangeText={text => setSenha(text)} value={getSenha}/>
-            {errorSenha ? (<Text style={styles.errorMsg}>Digite uma senha</Text>) : ''}
-
-            <TextInput style={styles.input} placeholder="Repetir Senha" secureTextEntry={true}/>
+            <Text style={Styles.labelsCadastro}>Repetir Senha</Text>  
+            <TextInput style={Styles.input} secureTextEntry={true} onChangeText={text => setSenha(text)} value={getSenha}/>
             
-            <TextInput style={styles.input} placeholder="CPF" onChangeText={text => setCPF(text)} value={getCPF}/>
-            {errorCPF ? (<Text style={styles.errorMsg}>Digite o CPF</Text>) : ''}
+            <Text style={Styles.labelsCadastro}>CPF</Text>  
+            <TextInput style={Styles.input} onChangeText={text => setCPF(text)} value={getCPF}/>
+            {errorCPF ? (<Text style={Styles.errorMsg}>Digite o CPF</Text>) : ''}
 
-            <TextInput style={styles.input} placeholder="E-mail do supervisor" onChangeText={text => setSupervisor(text)} value={getSupervisor}/>
-            {errorSupervisor ? (<Text style={styles.errorMsg}>Digite o e-mail do supervisor</Text>) : ''}
-
-            <TouchableOpacity style={styles.botaoCadastro} onPress={checkCadastro}>
+            <TouchableOpacity style={Styles.botaoCadastro} onPress={checkCadastro}>
                 <Text style={styles.textoBotao}>Editar</Text>
             </TouchableOpacity>
         
@@ -115,9 +111,8 @@ function EditarUsuarioScreen({route, navigation}) {
             <View style={styles.modalMain}>
               <View style={styles.modal}>
                 <Text style={styles.textoDivs}>{sucesso}</Text>
-                <Text style={styles.descricaoEmAndamento}>Faça login para acessar sua conta.</Text>
                 <TouchableOpacity style={styles.botaoFazerLogin} onPress={handleLogin}>
-                    <Text style={styles.textoBotao}>Fazer login</Text>
+                    <Text style={styles.textoBotao}>Entendi</Text>
                 </TouchableOpacity>
               </View>
               </View>
@@ -141,13 +136,11 @@ const styles = StyleSheet.create({
       marginTop: 20,
       marginRight: 160,
       fontSize: 20,
-      fontFamily: 'Montserrat_700Bold'
     },
     errorMsg:{
       color: '#A52A2A',
       fontWeight: 'bold',
       fontSize: 15,
-      fontFamily: 'Montserrat_700Bold'
     },
     input: {
       width: '85%',
@@ -159,7 +152,6 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       flex: 1,
       backgroundColor: '#FFFDFD',
-      fontFamily: 'Montserrat_300Light'
     },
     botaoCadastro: {
       width: '85%',
@@ -184,7 +176,6 @@ const styles = StyleSheet.create({
       color: '#fff',
       fontWeight: 'bold',
       textAlign: 'center',
-      fontFamily: 'Montserrat_600SemiBold'
     },
     modal:{
       backgroundColor: '#68A54C', 
@@ -205,15 +196,13 @@ const styles = StyleSheet.create({
     textoDivs:{
       fontWeight: 'bold',
       fontSize: 17,
-      fontFamily: 'Montserrat_600SemiBold'
     },
     descricaoEmAndamento:{
       marginTop: 7,
       fontSize: 16,
       color: '#F0E3E3',
       fontWeight: 'bold',
-      fontFamily: 'Montserrat_600SemiBold'
-  },
+    },
   });
 
 export default EditarUsuarioScreen;

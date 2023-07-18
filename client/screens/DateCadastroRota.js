@@ -4,12 +4,6 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Toast from 'react-native-toast-message';
 import Axios from 'axios';
-import {
-    useFonts,
-    Montserrat_300Light,
-    Montserrat_600SemiBold,
-    Montserrat_700Bold,
-  } from '@expo-google-fonts/montserrat';
 
 function CadastroRotaScreen({route, navigation}) {
     let sucesso = 'Rota cadastrado com sucesso!';
@@ -43,12 +37,6 @@ function CadastroRotaScreen({route, navigation}) {
         setPromotorId(id);
         setModalVisible(false);
     };
-
-    let [fontsLoaded] = useFonts({ 
-        Montserrat_300Light,
-        Montserrat_600SemiBold,
-        Montserrat_700Bold,
-    });
   
     const checkCadastro = (values) => {  
         var lojaVazia = getLoja == undefined || getLoja == '' ? true : false;
@@ -191,26 +179,22 @@ const styles = StyleSheet.create({
     icon:{
         fontWeight: 'bold',
         fontSize: 20,
-        fontFamily: 'Montserrat_300Light'
     },
     titulo:{
       fontWeight: 'bold',
       marginTop: 20,
       marginRight: 170,
       fontSize: 20,
-      fontFamily: 'Montserrat_700Bold'
     },
     lstPromotor:{
         fontWeight: 'bold',
         fontSize: 15,
         padding: 10,
-        fontFamily: 'Montserrat_300Light'
       },
     errorMsg:{
       color: '#A52A2A',
       fontWeight: 'bold',
       fontSize: 15,
-      fontFamily: 'Montserrat_700Bold'
     },
     input: {
       width: '85%',
@@ -222,7 +206,6 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       flex: 1,
       backgroundColor: '#FFFDFD',
-      fontFamily: 'Montserrat_300Light'
     },
     inputPromotorModal: {
         width: '100%',
@@ -235,7 +218,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flex: 1,
         backgroundColor: '#FFFDFD',
-        fontFamily: 'Montserrat_300Light'
       },
     botaoCadastro: {
       width: '85%',
@@ -264,7 +246,6 @@ const styles = StyleSheet.create({
       color: '#fff',
       fontWeight: 'bold',
       textAlign: 'center',
-      fontFamily: 'Montserrat_600SemiBold'
     },
     modal:{
       backgroundColor: '#DFDEE0', 
@@ -284,7 +265,6 @@ const styles = StyleSheet.create({
     textoDivs:{
       fontWeight: 'bold',
       fontSize: 17,
-      fontFamily: 'Montserrat_600SemiBold',
       marginRight: 100,
     },
     descricaoEmAndamento:{
@@ -292,7 +272,6 @@ const styles = StyleSheet.create({
       fontSize: 16,
       color: '#F0E3E3',
       fontWeight: 'bold',
-      fontFamily: 'Montserrat_600SemiBold'
     },
 
   });

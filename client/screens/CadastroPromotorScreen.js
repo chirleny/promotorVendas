@@ -2,12 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import Toast from 'react-native-toast-message';
 import Axios from 'axios';
-/*import {
-    useFonts,
-    Montserrat_300Light,
-    Montserrat_600SemiBold,
-    Montserrat_700Bold,
-  } from '@expo-google-fonts/montserrat';*/
 
 function CadastroPromotorScreen({route, navigation}) {
     let sucesso = 'Usuário cadastrado com sucesso!';
@@ -24,12 +18,6 @@ function CadastroPromotorScreen({route, navigation}) {
     const [errorSenha, setErrorSenha] = useState(false);
     const [errorCPF, setErrorCPF] = useState(false);
     const [errorEndereco, setErrorEndereco] = useState(false);
-
-    /*let [fontsLoaded] = useFonts({ 
-        Montserrat_300Light,
-        Montserrat_600SemiBold,
-        Montserrat_700Bold,
-    });*/
   
   const checkCadastro = (values) => {  
     var nomeVazio = getNome == undefined || getNome == '' ? true : false;
@@ -118,13 +106,11 @@ const styles = StyleSheet.create({
       marginTop: 20,
       marginRight: 205,
       fontSize: 20,
-      fontFamily: 'Montserrat_700Bold'
     },
     errorMsg:{
       color: '#A52A2A',
       fontWeight: 'bold',
       fontSize: 15,
-      fontFamily: 'Montserrat_700Bold'
     },
     input: {
       width: '85%',
@@ -136,7 +122,6 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       flex: 1,
       backgroundColor: '#FFFDFD',
-      fontFamily: 'Montserrat_300Light'
     },
     botaoCadastro: {
       width: '85%',
@@ -161,7 +146,6 @@ const styles = StyleSheet.create({
       color: '#fff',
       fontWeight: 'bold',
       textAlign: 'center',
-      fontFamily: 'Montserrat_600SemiBold'
     },
     modal:{
       backgroundColor: '#68A54C', 
@@ -182,14 +166,12 @@ const styles = StyleSheet.create({
     textoDivs:{
       fontWeight: 'bold',
       fontSize: 17,
-      fontFamily: 'Montserrat_600SemiBold'
     },
     descricaoEmAndamento:{
       marginTop: 7,
       fontSize: 16,
       color: '#F0E3E3',
       fontWeight: 'bold',
-      fontFamily: 'Montserrat_600SemiBold'
   },
   });
 
