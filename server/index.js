@@ -111,7 +111,6 @@ app.post('/cadastroPromotor', (req, res) => {
     const email = req.body.email;
     const senha = req.body.senha;
     const nome = req.body.nome;
-    const endereco = req.body.endereco;
     const cpf = req.body.cpf;
     const perfil = req.body.perfil;
     const email_supervisor = req.body.email_supervisor;
@@ -119,13 +118,13 @@ app.post('/cadastroPromotor', (req, res) => {
     db.query("SELECT * FROM usuario WHERE email = ?", [email], (err, result) => {
         if(err){
             res.send(err);  
-        }
-        if(result.length == 0){
-            db.query("INSERT INTO usuario (email, senha, nome, endereco, email_supervisor, cpf, perfil) VALUES (?, ?, ?, ?, ?, ?)", [email, senha, nome, endereco, email_supervisor, cpf, perfil], (err, response) => {
+        }else if(result.length == 0){
+            db.query("INSERT INTO usuario (email, senha, nome, email_supervisor, cpf, perfil) VALUES (?, ?, ?, ?, ?, ?)", [email, senha, nome, email_supervisor, cpf, perfil], (err, response) => {
                 if(err){
                     res.send(err);  
-                }
-                res.send({msg: "Cadastrado com sucesso"}) 
+                }else{
+                    res.send({msg: "Cadastrado com sucesso"}) 
+                }                
             });
         }else{
             res.send({msg: "Usuário já cadastrado."})
@@ -139,11 +138,6 @@ app.post('/cadastroRota', (req, res) => {
     const promotor = req.body.promotor;
     const duracao = req.body.duracao;
 
-    console.log('1 ' + loja);
-    console.log('1 ' + localizacao);
-    console.log('1 ' + promotor);
-    console.log('1 ' + duracao);
-    
     db.query("INSERT INTO rota (loja, localizacao, promotor, duracao) VALUES (?, ?, ?, ?)", [loja, localizacao, promotor, duracao], (err, response) => {
         if(err){
             res.send(err);  

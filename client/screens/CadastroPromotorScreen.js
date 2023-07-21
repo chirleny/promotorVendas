@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import Toast from 'react-native-toast-message';
 import Axios from 'axios';
+import Styles from './Styles.js'
 
 function CadastroPromotorScreen({route, navigation}) {
     let sucesso = 'Usuário cadastrado com sucesso!';
@@ -35,13 +36,13 @@ function CadastroPromotorScreen({route, navigation}) {
     var enderecoVazio = getEndereco == undefined || getEndereco == '' ? true : false;
     setErrorEndereco(enderecoVazio);
 
-    if(!nomeVazio && !emailVazio && !senhaVazia && !cpfVazio && !enderecoVazio){
+    if(!nomeVazio && !emailVazio && !senhaVazia && !cpfVazio){
       handleCadastro();
     }
   };
 
     const handleCadastro = (values) => {
-      Axios.post("http://localhost:3001/cadastroPromotor", {
+      Axios.post("http://192.168.10.3:3001/cadastroPromotor", {
         email: getEmail,
         senha: getSenha,
         nome: getNome,
@@ -62,117 +63,31 @@ function CadastroPromotorScreen({route, navigation}) {
     };
 
     return (
-        <View style={styles.main}>
-          <Text style={styles.titulo}>Criar conta</Text>
+        <View style={Styles.main}>
+          <Text style={Styles.titulo}>Criar conta</Text>
+          <Text style={Styles.labelsCadastro}>Nome</Text> 
+            <TextInput style={Styles.input} name="nome" onChangeText={text => setNome(text)} value={getNome}/>
+            {errorNome ? (<Text style={Styles.errorMsg}>Digite o nome</Text>) : ''}
 
-            <TextInput style={styles.input} name="nome" placeholder="Nome" onChangeText={text => setNome(text)} value={getNome}/>
-            {errorNome ? (<Text style={styles.errorMsg}>Digite o nome</Text>) : ''}
+            <Text style={Styles.labelsCadastro}>E-mail</Text> 
+            <TextInput style={Styles.input} required="true" name="email" onChangeText={text => setEmail(text)} value={getEmail} />
+            {errorEmail ? (<Text style={Styles.errorMsg}>Digite o e-mail</Text>) : ''}
 
-            <TextInput style={styles.input} required="true" name="email" placeholder="E-mail" onChangeText={text => setEmail(text)} value={getEmail} />
-            {errorEmail ? (<Text style={styles.errorMsg}>Digite o e-mail</Text>) : ''}
-
-            <TextInput style={styles.input} placeholder="Senha" secureTextEntry={true} onChangeText={text => setSenha(text)} value={getSenha}/>
-            {errorSenha ? (<Text style={styles.errorMsg}>Digite uma senha</Text>) : ''}
-
-            <TextInput style={styles.input} placeholder="Repetir Senha" secureTextEntry={true}/>
-
-            <TextInput style={styles.input} placeholder="Endereço" onChangeText={text => setEndereco(text)} value={getEndereco}/>
-            {errorEndereco ? (<Text style={styles.errorMsg}>Digite o endereço</Text>) : ''}
+            <Text style={Styles.labelsCadastro}>Senha</Text> 
+            <TextInput style={Styles.input} secureTextEntry={true} onChangeText={text => setSenha(text)} value={getSenha}/>
+            {errorSenha ? (<Text style={Styles.errorMsg}>Digite uma senha</Text>) : ''}
             
-            <TextInput style={styles.input} placeholder="CPF" onChangeText={text => setCPF(text)} value={getCPF}/>
-            {errorCPF ? (<Text style={styles.errorMsg}>Digite o CPF</Text>) : ''}
+            <Text style={Styles.labelsCadastro}>CPF</Text> 
+            <TextInput style={Styles.input} onChangeText={text => setCPF(text)} value={getCPF}/>
+            {errorCPF ? (<Text style={Styles.errorMsg}>Digite o CPF</Text>) : ''}
 
-            <TouchableOpacity style={styles.botaoCadastro} onPress={checkCadastro}>
-                <Text style={styles.textoBotao}>Cadastrar</Text>
+            <TouchableOpacity style={Styles.botaoCadastro} onPress={checkCadastro}>
+                <Text style={Styles.textoBotao}>Cadastrar</Text>
             </TouchableOpacity>
             <Toast />
 
         </View>
       );
     }
-
-
-
-const styles = StyleSheet.create({  
-    main:{
-      backgroundColor: "#DFDEE0", 
-      flex: 1,
-      alignItems: 'center', 
-      justifyContent: 'center', 
-      fontWeight: 'bold'
-    },
-    titulo:{
-      fontWeight: 'bold',
-      marginTop: 20,
-      marginRight: 205,
-      fontSize: 20,
-    },
-    errorMsg:{
-      color: '#A52A2A',
-      fontWeight: 'bold',
-      fontSize: 15,
-    },
-    input: {
-      width: '85%',
-      marginVertical: 20,
-      padding: 10,
-      borderRadius: 5,
-      borderWidth: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      flex: 1,
-      backgroundColor: '#FFFDFD',
-    },
-    botaoCadastro: {
-      width: '85%',
-      backgroundColor: '#0C0B0B',
-      padding: 10,
-      borderRadius: 5,
-      borderWidth: 1,
-      borderColor: '#007bff',
-      marginTop: 10,
-      marginBottom: 30
-    },
-    botaoFazerLogin: {
-      width: '65%',
-      backgroundColor: '#0C0B0B',
-      padding: 8,
-      borderRadius: 5,
-      borderWidth: 1,
-      borderColor: '#252424',
-      marginTop: 10,
-    },
-    textoBotao: {
-      color: '#fff',
-      fontWeight: 'bold',
-      textAlign: 'center',
-    },
-    modal:{
-      backgroundColor: '#68A54C', 
-      margin: 20,
-      padding: 20,
-      borderRadius: 20,
-      elevation:1,   
-      alignItems: 'center',
-      justifyContent: 'center',   
-    },
-    modalMain:{
-      backgroundColor: 'rgba(0,0,0,0.5)',    
-      height: '100%',
-      alignItems: 'center',
-      justifyContent: 'center',
-      flex: 1,
-    },
-    textoDivs:{
-      fontWeight: 'bold',
-      fontSize: 17,
-    },
-    descricaoEmAndamento:{
-      marginTop: 7,
-      fontSize: 16,
-      color: '#F0E3E3',
-      fontWeight: 'bold',
-  },
-  });
 
 export default CadastroPromotorScreen;

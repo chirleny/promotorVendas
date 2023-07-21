@@ -86,4 +86,9 @@ export default StyleSheet.create({
         marginTop: -20,
         paddingBottom: 20,
       },
+      textoBotao: {
+        color: '#fff',
+        fontWeight: 'bold',
+        textAlign: 'center',
+      },
 })
